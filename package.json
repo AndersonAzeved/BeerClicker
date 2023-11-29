@@ -12,7 +12,11 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.11.5",
+<<<<<<< HEAD
     "baseui": "^13.0.0",
+=======
+    "bootstrap": "^5.3.2",
+>>>>>>> main
     "firebase": "^10.7.0",
     "grommet": "^2.34.1",
     "grommet-icons": "^4.11.0",
