@@ -1,0 +1,16 @@
+.form{
+    border-radius: 15px;
+    border: 1px #eead2d solid;
+    padding: 35px;
+    width: 400px;
+    position: relative;
+}
+
+.form Button{
+    background: #eead2d;
+}
+
+.cadastro{
+    justify-content: space-between;
+    display: flex;
+}
