@@ -5,7 +5,7 @@ import styles from './cadastro.module.css'
 export default function Cadastrar(){
   return (
     <Form className={styles.form}>
-        <title>Cadastro</title>
+        <title>BeerClicker | Cadastro</title>
         <h4>Cadastrar</h4>
 
         <Form.Group className="mb-3">
@@ -25,7 +25,7 @@ export default function Cadastrar(){
         
         <Form.Group className={styles.cadastro}>
             <a href='../login/login'><Form.Label>Possui cadastro?</Form.Label></a>
-            <a href='../resgatSenha/resgatSenha'><Form.Label>Esqueceu a senha?</Form.Label></a>
+            <a href='../recuperarSenha/recuperarSenha'><Form.Label>Esqueceu a senha?</Form.Label></a>
         </Form.Group>
 
         <Button variant="primary" type="submit">Cadastrar</Button>
