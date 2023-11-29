@@ -1,5 +1,8 @@
 export default function Home(){
     return(
-        <div>Olá, bem-vindo! BeerClicker</div>
+        <div>
+            <title>Beer Clicker</title>
+            <h1>Olá, bem-vindo! BeerClicker</h1>
+        </div>
     )
 }
