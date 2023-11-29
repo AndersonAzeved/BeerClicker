@@ -6,7 +6,6 @@ import {firebaseConfig} from '../../../firebaseConfig'
 
 export default function RecuperarSenha(){
   const f = firebaseConfig()
-  console.log(f.apiKey)
   
   return (
     <Form className={styles.form}>
