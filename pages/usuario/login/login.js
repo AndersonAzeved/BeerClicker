@@ -1,8 +1,18 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './login.module.css'
+import {firebaseConfig} from '../../../firebaseConfig'
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword  } from "firebase/auth";
+
 
 export default function Login(){
+  console.log('a', firebaseConfig)
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  
+
   return (
     <Form className={styles.form}>
         <title>BeerClicker | Log in</title>

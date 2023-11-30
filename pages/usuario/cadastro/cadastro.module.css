@@ -14,3 +14,8 @@
     justify-content: space-between;
     display: flex;
 }
+
+.avisos{
+    color: red;
+    font-size: 14px;
+}
