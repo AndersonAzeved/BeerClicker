@@ -1,11 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './cadastro.module.css'
-
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {firebaseConfig} from '../../../firebaseConfig'
 import { initializeApp } from "firebase/app";
 import React, { useState } from "react";
+import {autenticar} from '../funcoes/_autenticar'
 
 
 export default function Cadastrar(){
@@ -13,6 +13,8 @@ export default function Cadastrar(){
     const [password, setPassword] = useState('')
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const aut = autenticar()
+    console.log(aut)
 
     const cadastrar = (e) => {
         e.preventDefault();
