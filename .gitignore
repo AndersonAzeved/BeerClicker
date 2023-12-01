@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 # Arquivos
-configFirebase.js
+firebaseConfig.js
+.vercel
