@@ -1,11 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './recuperarSenha.module.css'
-import {firebaseConfig} from '../../../firebaseConfig'
 
 
 export default function RecuperarSenha(){
-  const f = firebaseConfig()
   
   return (
     <Form className={styles.form}>

@@ -1,24 +1,39 @@
-import {getAuth, onAuthStateChanged} from 'firebase/auth'
-import { initializeApp } from "firebase/app";
-import {firebaseConfig} from '../../../firebaseConfig'
-import React, { useState } from "react";
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import React, { useEffect, useState } from "react";
 
 
 //// Autenticação através do firebase
 //// Verifica se o usuário está cadastrado (true) ou não (false)
 //// Usar nas funções para validar
-export function autenticar(){ 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app)
-    const [valor, setValor] = useState(false)
-    
-    onAuthStateChanged(auth, (user) => {
-        if(user){
-            setValor(true)
-        }else{
-            setValor(false)
-        }
+export function autenticar(auth){ 
+    const [valor, setValor] = useState('')
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if(user){
+                setValor(true)
+            }else{
+                setValor(false)
+            }
+        }, [auth])
     })
 
     return valor
+}
+
+
+// Realiza o signOut do usuário
+// realizou (true) ou não (false)
+export function sair(auth){
+    const [saida, setSaida] = useState('')
+
+    useEffect(() => {
+        signOut(auth).then(() => {
+            setSaida(true)
+        }).catch((error) => {
+            setSaida(false)
+        })
+    }, [auth])
+
+    return saida
 }
