@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './login.module.css'
 import { initializeApp } from "firebase/app";
-import { Autenticar, Sair } from '../funcoes/_autenticar';
+import { Autenticar, Sair } from '../../../funcoes/_autenticar';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { use, useState } from 'react';
 

@@ -4,7 +4,7 @@ import styles from './cadastro.module.css'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import React, { useState } from "react";
-import {Autenticar, Sair} from '../funcoes/_autenticar'
+import {Autenticar, Sair} from '../../../funcoes/_autenticar'
 
 
 export default function Cadastrar(props){
