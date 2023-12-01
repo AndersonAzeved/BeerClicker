@@ -4,18 +4,18 @@ import styles from './cadastro.module.css'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import React, { useState } from "react";
-import {autenticar, sair} from '../funcoes/_autenticar'
+import {Autenticar, Sair} from '../funcoes/_autenticar'
 
 
 export default function Cadastrar(props){
     const app = initializeApp(props)
     const auth = getAuth(app)
-    const autenticado = autenticar(auth)
+    const autenticado = Autenticar(auth)
     const [email, setEmail] = useState(' ')
     const [password, setPassword] = useState(' ')
     const [nick, setNick] = useState(' ')
 
-    //sair(auth)
+    //Sair(auth)
     if(autenticado){
         return(
             <div>Você já está logado</div> // Enviar para página principal
@@ -23,9 +23,9 @@ export default function Cadastrar(props){
     }else{
         
         // saber se o usuário tá logado
-        //console.log('Está logado? ', autenticar(auth))
+        //console.log('Está logado? ', Autenticar(auth))
         // saber se fez sig out
-        //console.log('Sig out? ', autenticar(auth))
+        //console.log('Sig out? ', Autenticar(auth))
 
         
         const cadastrar = (e) => { // Falta verificar o link
