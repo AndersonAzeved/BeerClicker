@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './login.module.css'
 import { initializeApp } from "firebase/app";
-import { autenticar, sair } from '../funcoes/_autenticar';
+import { Autenticar, Sair } from '../funcoes/_autenticar';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { use, useState } from 'react';
 
@@ -10,11 +10,11 @@ import { use, useState } from 'react';
 export default function Login(props){
   const app = initializeApp(props)
   const auth = getAuth(app)
-  const autenticado = autenticar(auth)
+  const autenticado = Autenticar(auth)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  //sair(auth)
+  //Sair(auth)
 
   if(autenticado){
     return(
