@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 //// Verifica se o usuário está cadastrado (true) ou não (false)
 //// Usar nas funções para validar
 
-export const Autenticar = (auth) => {
+export const autenticar = (auth) => {
     const [valor, setValor] = useState('')
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export const Autenticar = (auth) => {
 
 // Realiza o signOut do usuário
 // realizou (true) ou não (false)
-export const Sair = (auth) => {
+export const sair = (auth) => {
     const [saida, setSaida] = useState('')
 
     useEffect(() => {
