@@ -131,4 +131,8 @@ dist
 
 # Arquivos
 firebaseConfig.js
+<<<<<<< HEAD
 .vercel
+=======
+.vercel
+>>>>>>> usuario
