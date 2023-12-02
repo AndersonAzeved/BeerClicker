@@ -1,12 +1,11 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 
 //// Autenticação através do firebase
 //// Verifica se o usuário está cadastrado (true) ou não (false)
 //// Usar nas funções para validar
-
-export const Autenticar = (auth) => {
+export const autenticar = (auth) => {
     const [valor, setValor] = useState('')
 
     useEffect(() => {
@@ -25,16 +24,8 @@ export const Autenticar = (auth) => {
 
 // Realiza o signOut do usuário
 // realizou (true) ou não (false)
-export const Sair = (auth) => {
-    const [saida, setSaida] = useState('')
-
-    useEffect(() => {
-        signOut(auth).then(() => {
-            setSaida(true)
-        }).catch((error) => {
-            setSaida(false)
-        })
-    }, [auth])
-
-    return saida
+export const sair = (auth) => {
+    signOut(auth).then(() => {
+    }).catch((error) => {
+    })
 }

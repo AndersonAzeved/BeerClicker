@@ -2,23 +2,24 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './login.module.css'
 import { initializeApp } from "firebase/app";
-import { Autenticar, Sair } from '../../../funcoes/_autenticar';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { use, useState } from 'react';
+import { autenticar, sair } from '../../../funcoes/autenticar';
+import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import { useState } from 'react';
 
 
 export default function Login(props){
   const app = initializeApp(props)
   const auth = getAuth(app)
-  const autenticado = Autenticar(auth)
+  const autenticado = autenticar(auth)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  //Sair(auth)
-
   if(autenticado){
     return(
-      <div>Você já está logado</div> // Enviar para página principal
+      <div>
+        <h1>Você já está logado</h1>
+        <button onClick={() => sair(auth)}>Sair</button>
+      </div> // Enviar para página principal
     )
   }else{
     const login = (e) => {
@@ -26,7 +27,6 @@ export default function Login(props){
 
       signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         document.getElementById('formLogin').innerHTML = '<h3>Log in com sucesso</h3>'
-        console.log('logado')
 
       }).catch((error) => {
         const errorCode = error.code
