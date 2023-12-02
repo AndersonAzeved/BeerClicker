@@ -15,19 +15,11 @@ export default function Cadastrar(props){
     const [password, setPassword] = useState(' ')
     const [nick, setNick] = useState(' ')
 
-    //sair(auth)
     if(autenticado){
         return(
             <div>Você já está logado</div> // Enviar para página principal
         )
-    }else{
-        
-        // saber se o usuário tá logado
-        //console.log('Está logado? ', autenticar(auth))
-        // saber se fez sig out
-        //console.log('Sig out? ', autenticar(auth))
-
-        
+    }else{     
         const cadastrar = (e) => { // Falta verificar o link
             e.preventDefault()
 
