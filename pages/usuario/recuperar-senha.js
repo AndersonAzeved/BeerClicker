@@ -1,20 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import styles from './recuperarSenha.module.css'
+import styles from './styles/recuperar-senha.module.css'
 import { useState } from 'react';
-import { initializeApp } from "firebase/app";
-import { getAuth, sendPasswordResetEmail} from "firebase/auth";
+import { sendPasswordResetEmail} from "firebase/auth";
+import { auth } from '../../util/firebase';
 
 
-export default function RecuperarSenha(props){
+export default function RecuperarSenha(){
   const [email, setEmail] = useState('')
-
-  const app = initializeApp(props)
-  const auth = getAuth(app)
-
+  
   const recuperar = () =>{
-    sendPasswordResetEmail(auth, email)
-    .then(() => {
+    sendPasswordResetEmail(auth, email).then(() => {
       document.getElementById("formRecuperar").innerHTML = '<h1>Se você possui cadastro, um email foi enviado<h1>'
     })
     .catch((error) => {
@@ -40,25 +36,11 @@ export function FormRecup({recuperar, setEmail}){
         </Form.Group>
         
         <Form.Group className={styles.cadastro}>
-          <a href='../login/login'><Form.Label>Log in</Form.Label></a>
-          <a href='../cadastro/cadastro'><Form.Label>Realizar cadastrado</Form.Label></a>
+          <a href='./login'><Form.Label>Log in</Form.Label></a>
+          <a href='./cadastro'><Form.Label>Realizar cadastrado</Form.Label></a>
         </Form.Group>
 
         <Button variant="primary" type="submit">Enviar</Button>
     </Form>
   )
-}
-
-export async function getStaticProps(){
-  return{
-      props: {
-          apiKey: process.env.API_KEY,
-          authDomain: process.env.AUTH_DOMAIN,
-          projectId: process.env.PROJECT_ID,
-          storageBucket: process.env.STORAGE_BUCKET,
-          messagingSenderId: process.env.MESSAGING_SENDER_ID,
-          appId: process.env.APP_ID,
-          measurementId: process.env.MEASUREMENT_ID
-      }
-  }
 }
