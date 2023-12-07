@@ -19,3 +19,17 @@
     color: red;
     font-size: 14px;
 }
+
+@media only screen and (max-device-width: 450px) {
+    .form{
+        padding: 25px;
+        width: 300px;
+    }
+}
+
+@media only screen and (max-device-width: 350px) {
+    .form{
+        padding: 15px;
+        width: 200px;
+    }
+}
