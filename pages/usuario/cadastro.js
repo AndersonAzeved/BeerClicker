@@ -1,21 +1,17 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import styles from './cadastro.module.css'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
+import styles from './styles/cadastro.module.css'
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import {autenticar, sair} from '../../../funcoes/autenticar'
+import { autenticar, auth } from '../../util/firebase';
 
 
-export default function Cadastrar(props){
-    const app = initializeApp(props)
-    const auth = getAuth(app)
-    const autenticado = autenticar(auth)
+export default function Cadastrar(){
     const [email, setEmail] = useState(' ')
     const [password, setPassword] = useState(' ')
     const [nick, setNick] = useState(' ')
 
-    if(autenticado){
+    if(autenticar()){
         return(
             <div>Você já está logado</div> // Enviar para página principal
         )
@@ -79,25 +75,11 @@ export function FormCadastrar({cadastrar, setEmail, setPassword, setNick}){
             </Form.Group>
             
             <Form.Group className={styles.cadastro}>
-                <a href='../login/login'><Form.Label>Possui cadastro?</Form.Label></a>
-                <a href='../recuperarSenha/recuperarSenha'><Form.Label>Esqueceu a senha?</Form.Label></a>
+                <a href='./login'><Form.Label>Possui cadastro?</Form.Label></a>
+                <a href='./recuperar-senha'><Form.Label>Esqueceu a senha?</Form.Label></a>
             </Form.Group>
 
             <Button variant="primary" type="submit">Cadastrar</Button>
         </Form>
     )
-}
-
-export async function getStaticProps(){
-    return{
-        props: {
-            apiKey: process.env.API_KEY,
-            authDomain: process.env.AUTH_DOMAIN,
-            projectId: process.env.PROJECT_ID,
-            storageBucket: process.env.STORAGE_BUCKET,
-            messagingSenderId: process.env.MESSAGING_SENDER_ID,
-            appId: process.env.APP_ID,
-            measurementId: process.env.MEASUREMENT_ID
-        }
-    }
 }
