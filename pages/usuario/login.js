@@ -1,24 +1,20 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import styles from './login.module.css'
-import { initializeApp } from "firebase/app";
-import { autenticar, sair } from '../../../funcoes/autenticar';
-import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import styles from './styles/login.module.css'
+import { signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
+import { autenticar, auth, sair } from '../../util/firebase';
 
 
-export default function Login(props){
-  const app = initializeApp(props)
-  const auth = getAuth(app)
-  const autenticado = autenticar(auth)
+export default function Login(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  if(autenticado){
+  
+  if(autenticar()){
     return(
       <div>
         <h1>Você já está logado</h1>
-        <button onClick={() => sair(auth)}>Sair</button>
+        <button onClick={sair}>Sair</button>
       </div> // Enviar para página principal
     )
   }else{
@@ -52,21 +48,6 @@ export default function Login(props){
   }
 }
 
-export async function getStaticProps(){
-  return{
-      props: {
-          apiKey: process.env.API_KEY,
-          authDomain: process.env.AUTH_DOMAIN,
-          projectId: process.env.PROJECT_ID,
-          storageBucket: process.env.STORAGE_BUCKET,
-          messagingSenderId: process.env.MESSAGING_SENDER_ID,
-          appId: process.env.APP_ID,
-          measurementId: process.env.MEASUREMENT_ID
-      }
-  }
-}
-
-
 export function FormLogin({login, setEmail, setPassword}){
   return(
     <Form className={styles.form} onSubmit={login} id='formLogin'>
@@ -86,8 +67,8 @@ export function FormLogin({login, setEmail, setPassword}){
       </Form.Group>
       
       <Form.Group className={styles.login}>
-          <a href='../cadastro/cadastro'><Form.Label>Fazer cadastrado?</Form.Label></a>
-          <a href='../recuperarSenha/recuperarSenha'><Form.Label>Esqueceu a senha?</Form.Label></a>
+          <a href='./cadastro'><Form.Label>Fazer cadastrado?</Form.Label></a>
+          <a href='./recuperar-senha'><Form.Label>Esqueceu a senha?</Form.Label></a>
       </Form.Group>
 
       <Button variant="primary" type="submit">Log in</Button>
