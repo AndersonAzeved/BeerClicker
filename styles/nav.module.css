@@ -26,3 +26,10 @@
     gap: 10px;
     display: flex;
 }
+
+@media only screen and (max-device-width: 900px) {
+    .ul{
+        height: 25px;
+        padding: 5px;
+    }
+}
