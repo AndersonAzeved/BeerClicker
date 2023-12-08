@@ -7,6 +7,9 @@
     height: 50px;
     padding: 10px;
     list-style: none;
+    position: relative;
+    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .li{
@@ -16,5 +19,17 @@
 
 .link{
     text-decoration: none;
-    color: white;
+    color: black;
+}
+
+.botoes{
+    gap: 10px;
+    display: flex;
+}
+
+@media only screen and (max-device-width: 900px) {
+    .ul{
+        height: 25px;
+        padding: 30px;
+    }
 }
