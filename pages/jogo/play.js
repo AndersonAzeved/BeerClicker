@@ -1,62 +1,64 @@
-import { getFirestore } from "firebase/firestore";
-import { autenticar } from "../../funcoes/autenticar";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { autenticar, auth, sair, bd } from "../../util/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore"; 
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import { Button } from "react-bootstrap";
+import styles from "./styles/play.module.css"
+import { getMelhorias } from "../../api/melhoriasApi";
 
-export default function Play(props){
-    const app = initializeApp(props)
-    const auth = getAuth(app)
-    //const analytics = getAnalytics(app);
 
-    const db = getFirestore(app)
-    const autenticado = autenticar(auth)
+export default function Play({melhorias}){
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    
+    const [clock, setClock] = useState(0);
+    const [contador, setContador] = useState(0)
 
-    if(autenticado){
-        return(
-            <div>
-                <h1>Deu certo</h1>
-                <button onClick={()=>submitDb(db)}>Add Itaipava</button>
-                <button onClick={()=>getDb(db)}>get DB</button>
-            </div>
-        )
-    }else{
-        const login = (e) => {
-            e.preventDefault()
-      
-            signInWithEmailAndPassword(auth, email, senha).then((userCredential) => {
-              document.getElementById('formLogin').innerHTML = '<h3>Log in com sucesso</h3>'
-      
-            }).catch((error) => {
-              const errorCode = error.code
-              const errorMessage = error.message
-              console.log("errorCode: ", errorCode)
-              console.log("errorMessage: ", errorMessage)
-            })
-        }
-        return(
-            <form id='formLogin' onSubmit={login}>
-                <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                <input onChange={(e) => setSenha(e.target.value)} placeholder="Senha" />
-                <button type="submit">submit</button>
-            </form>
-        )
-        
+   
+    useEffect(() => {
+        // Define um intervalo de 1000 milissegundos (1 segundo)
+        const intervalId = setInterval(() => {
+            // Atualiza o estado do contador a cada segundo
+            setClock((prevClock) => prevClock + 1);
+        }, 1000);
+
+        // Limpa o intervalo quando o componente é desmontado
+        return () => clearInterval(intervalId);
+    }, []); // O segundo parâmetro vazio [] garante que o useEffect seja executado apenas uma vez (montagem do componente)
+
+    const addContador = () =>{
+        setContador((a) => a+1)
     }
+
+    if(autenticar()){
+        return (
+            <div className={styles.layout}>
+                <div className={styles.container}>
+                    <p>Clock: {clock}</p>
+                </div>
+                <div className={styles.container}>
+                    <p>Contador: {contador}</p>
+                    <img className={styles.beer} onClick={addContador} src="/beer.png"/>
+                </div>
+                <div className={styles.container}>
+                    {melhorias.map((melhoria)=>(
+                        <div className={styles.item}>
+                            <img src={melhoria.foto} alt={melhoria.nome} />
+                            <div>{melhoria.nome}</div>
+                            <div>{melhoria.preco}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }  
 }
 
-export async function submitDb(db){
+export async function submitDb(db, nome, desc, prod, prec){
     try {
         const docRef = await addDoc(collection(db, "melhoria"), {
-            nome: "Itaipava",
-            descricao: "Produz uma pequena quantidade de cerveja passivamente.",
-            producao: 0.4 
+            nome: nome,
+            descricao: desc,
+            producao: prod,
+            preco: prec,
+            foto: "" 
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -64,36 +66,19 @@ export async function submitDb(db){
     }
 }
 
-export async function getDb(db){
-    const querySnapshot = await getDocs(collection(db, "melhoria"));
-        querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data().nome}`);
-    });
+export async function getDb(){
+    const querySnapshot = await getDocs(collection(bd, "melhorias"));
+    const teste = querySnapshot.docs.map((doc) => doc.data());
+    teste.map((x)=>{console.log(x.nome)})   
 }
 
-
 export async function getStaticProps(){
+    
+    try{
+        const melhorias = await getMelhorias()
 
-    /* 
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.AUTH_DOMAIN,
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    appId: process.env.APP_ID,
-    measurementId: process.env.MEASUREMENT_ID
-    */
-
-    return{
-        props: {
-            apiKey: "AIzaSyAQ0ufq90NYvrg0UnxFBIgyvC_UjFXb-W0",
-            authDomain: "beerclickerr.firebaseapp.com",
-            databaseURL: "https://beerclickerr-default-rtdb.firebaseio.com",
-            projectId: "beerclickerr",
-            storageBucket: "beerclickerr.appspot.com",
-            messagingSenderId: "343160384164",
-            appId: "1:343160384164:web:4c58c75e4a6a686ede1431",
-            measurementId: "G-7LEGWC6VMY"
-        }
+        return { props: {melhorias} }
+    }catch(e){
+        return { props: {}}
     }
-  }
+}

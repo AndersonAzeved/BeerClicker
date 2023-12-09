@@ -1,0 +1,50 @@
+.layout{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.item{
+    font-family: "Lucida Console", Courier, monospace;
+    color: #fffdd9;
+    font-size: 1.5em;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000;
+    font-weight: bolder;
+    
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    width: 300px;
+    height: 64px;
+    background-image: url("/storeTileLine.jpg");
+}
+
+
+.item img{
+    width:50px;
+}
+
+.beer{
+    width: 45%;
+}
+
+@media only screen and (max-device-width: 750px) {
+    .layout{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
