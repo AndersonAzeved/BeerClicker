@@ -3,44 +3,64 @@ import Form from 'react-bootstrap/Form';
 import styles from './styles/cadastro.module.css'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { autenticar, auth } from '../../util/firebase';
+import { autenticar, auth, bd } from '../../util/firebase';
 import { useRouter } from 'next/router';
+import { getUsers } from '../../api/usersApi';
+import { doc, setDoc } from 'firebase/firestore';
 
 
-export default function Cadastrar(){
+export default function Cadastrar({users}){
     const router = useRouter()
-
     const [email, setEmail] = useState(' ')
     const [password, setPassword] = useState(' ')
     const [nick, setNick] = useState(' ')
+    const [nickCad, setNickCad] = useState(false)
+    const [emailCad, setEmailCad] = useState(false)
 
     if(autenticar()){
         router.push('/usuario/login')
-        return(
-            <div>Você já está logado</div> // Enviar para página principal
-        )
     }else{     
         const cadastrar = (e) => { // Falta verificar o link
             e.preventDefault()
-
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                if(errorCode == 'auth/missing-password'){
-                    document.getElementById('avisos').innerHTML = '*Informe uma senha'
-                }else if(errorCode == 'auth/weak-password'){
-                    document.getElementById('avisos').innerHTML = '*A senha deve ter mais de seis caracteres'
-                }else if(errorCode == 'auth/email-already-in-use'){
-                    document.getElementById('avisos').innerHTML = '*Email já cadastrado'
-                }else{
-                    document.getElementById('avisos').innerHTML = '*Verifique as informações'
+            
+            users.map((user) => {
+                if(user.id === nick){
+                    setNickCad(true)
                 }
-            });
+            })
+
+            users.map((user) => {
+                if(user.data.email === email){
+                    console.log(user.data.email)
+                    setEmailCad(true)
+                }
+            })
+
+            if(nickCad == true || emailCad == true){
+                document.getElementById('avisos').innerHTML = 'Nickname já cadastrado'
+                setNickCad(false)
+                setEmailCad(false)
+            }else{
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    submitUser(bd, nick, email)
+                    document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    if(errorCode == 'auth/missing-password'){
+                        document.getElementById('avisos').innerHTML = '*Informe uma senha'
+                    }else if(errorCode == 'auth/weak-password'){
+                        document.getElementById('avisos').innerHTML = '*A senha deve ter mais de seis caracteres'
+                    }else if(errorCode == 'auth/email-already-in-use'){
+                        document.getElementById('avisos').innerHTML = '*Email já cadastrado'
+                    }else{
+                        document.getElementById('avisos').innerHTML = '*Verifique as informações'
+                    }
+                })
+            }
         }
 
         return(
@@ -86,4 +106,33 @@ export function FormCadastrar({cadastrar, setEmail, setPassword, setNick}){
             <Button variant="primary" type="submit">Cadastrar</Button>
         </Form>
     )
+}
+
+export async function getStaticProps(){
+    
+    try{
+        const users = await getUsers()
+  
+        return { props: {users} }
+    }catch(e){
+        return { props: {}}
+    }
+}
+
+export async function submitUser(db, nickname, email){
+    try {
+        const docRef = await setDoc(doc(db, "user", nickname), {
+            email: email,
+        });
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+
+    /*
+        await setDoc(doc(db, "cities", "LA"), {
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA"
+        });
+    */
 }

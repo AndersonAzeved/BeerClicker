@@ -5,24 +5,16 @@ import { signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
 import { autenticar, auth, sair } from '../../util/firebase';
 import { useRouter } from 'next/router';
-import { getUsers } from '../../api/usersApi';
 
 
-export default function Login({users}){
+export default function Login(){
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  console.log(users.map((doc) => doc.id))
   
   if(autenticar()){
     router.push('/jogo/play')
-    return(
-      <div>
-        <h1>Você já está logado</h1>
-        <button onClick={sair}>Sair</button>
-      </div> // Enviar para página principal
-    )
   }else{
     const login = (e) => {
       e.preventDefault()
@@ -80,15 +72,4 @@ export function FormLogin({login, setEmail, setPassword}){
       <Button variant="primary" type="submit">Log in</Button>
   </Form>
   )
-}
-
-export async function getStaticProps(){
-    
-  try{
-      const users = await getUsers()
-
-      return { props: {users} }
-  }catch(e){
-      return { props: {}}
-  }
 }

@@ -7,7 +7,7 @@ export async function getUsers() {
     const querySnapshot = await getDocs(userCollection)
     const users = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        data: doc.data(),
+        data:doc.data(),
       }))
     return users
 }
