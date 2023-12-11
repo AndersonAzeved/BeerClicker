@@ -13,8 +13,8 @@ export default function Nav(){
                     <Link href='/' className={styles.link}><h5>Beer Clicker</h5></Link>
                 </li>
                 <div className={styles.botoes}>
-                    <a href='/usuario/login' type="button" className="btn btn-primary btn-sm">Sig in</a>
-                    <a href='/usuario/cadastro' type="button" className="btn btn-success btn-sm">Sig up</a>
+                    <a href='/usuario/login' type="button" className="btn btn-primary btn-sm">Log in</a>
+                    <a href='/usuario/cadastro' type="button" className="btn btn-success btn-sm">Sign up</a>
                 </div>
             </ul>
         )

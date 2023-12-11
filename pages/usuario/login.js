@@ -5,12 +5,15 @@ import { signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
 import { autenticar, auth, sair } from '../../util/firebase';
 import { useRouter } from 'next/router';
+import { getUsers } from '../../api/usersApi';
 
 
-export default function Login(){
+export default function Login({users}){
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  console.log(users.map((doc) => doc.id))
   
   if(autenticar()){
     router.push('/jogo/play')
@@ -77,4 +80,15 @@ export function FormLogin({login, setEmail, setPassword}){
       <Button variant="primary" type="submit">Log in</Button>
   </Form>
   )
+}
+
+export async function getStaticProps(){
+    
+  try{
+      const users = await getUsers()
+
+      return { props: {users} }
+  }catch(e){
+      return { props: {}}
+  }
 }
