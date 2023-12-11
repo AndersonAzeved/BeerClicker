@@ -1,0 +1,116 @@
+.page{
+    position: relative;
+}
+
+.beer{
+    width: 200px;
+}
+
+.image{
+    display: flex;
+    position: relative;
+}
+
+.texto{
+    margin-left: 30px;    
+    font-size: 20px;
+    text-align: justify;
+}
+
+.title{
+    background-color: #eead2d;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.devs{
+    text-align: center;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.devs img{
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+}
+
+.sobre{
+    position: relative;
+}
+
+
+@media only screen and (max-device-width: 900px) {
+    .beer{
+        width: 550px;
+        height: 300px;
+    }
+
+    .devs{
+        display: flexbox;
+    }
+
+    .devs img{
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+    }
+
+    .title{
+        text-align: center;
+    }
+}
+
+@media only screen and (max-device-width: 600px) {
+    .beer{
+        width: 200px;
+        height: 250px;
+        margin-left: 30%;
+        margin-bottom: 20px;
+    }
+
+    .image{
+        display: block;
+    }
+
+    .devs{
+        display: contents;
+    }
+
+    .devs img{
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+    }
+
+    .title{
+        text-align: center;
+    }
+}
+
+@media only screen and (max-device-width: 450px) {
+    .beer{
+        width: 130px;
+        margin-left: 30%;
+        margin-bottom: 20px;
+    }
+
+    .image{
+        display: flow-root;
+    }
+
+    .devs{
+        display: block;
+    }
+
+    .devs img{
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+    }
+
+    .title{
+        text-align: center;
+    }
+}
+
