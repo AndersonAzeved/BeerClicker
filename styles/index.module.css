@@ -86,11 +86,16 @@
     .title{
         text-align: center;
     }
+
+    .texto{
+        margin-left: 0px; 
+    }
 }
 
 @media only screen and (max-device-width: 450px) {
     .beer{
         width: 130px;
+        height: 180px;
         margin-left: 30%;
         margin-bottom: 20px;
     }
@@ -111,6 +116,10 @@
 
     .title{
         text-align: center;
+    }
+
+    .texto{
+        margin-left: 0px; 
     }
 }
 
