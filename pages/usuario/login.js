@@ -4,13 +4,16 @@ import styles from './styles/login.module.css'
 import { signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
 import { autenticar, auth, sair } from '../../util/firebase';
+import { useRouter } from 'next/router';
 
 
 export default function Login(){
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
   if(autenticar()){
+    router.push('/jogo/play')
     return(
       <div>
         <h1>Você já está logado</h1>

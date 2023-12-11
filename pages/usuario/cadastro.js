@@ -4,14 +4,18 @@ import styles from './styles/cadastro.module.css'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { autenticar, auth } from '../../util/firebase';
+import { useRouter } from 'next/router';
 
 
 export default function Cadastrar(){
+    const router = useRouter()
+
     const [email, setEmail] = useState(' ')
     const [password, setPassword] = useState(' ')
     const [nick, setNick] = useState(' ')
 
     if(autenticar()){
+        router.push('/usuario/login')
         return(
             <div>Você já está logado</div> // Enviar para página principal
         )
