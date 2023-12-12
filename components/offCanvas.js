@@ -27,11 +27,17 @@ export default function OffCanvas(){
               <summary>Atualizar foto</summary>
               <Foto/>
             </details>
+            <hr/>
+            <div className={styles.cervejaFav}>
+              <Image src='/cervejas/amstel lata.png' width={'auto'}/>
+            </div>
+            <br/>
             <details>
-              <summary>Ceveja favorita</summary>
+            <summary>Ceveja favorita</summary>
               <Foto/>
             </details>
-            <p>Seu ranking é 1º</p>
+            <hr/>
+            <h6>Seu ranking é 1º</h6>
           </Offcanvas.Body>
         </Offcanvas>
       </>

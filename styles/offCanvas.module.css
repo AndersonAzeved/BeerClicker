@@ -28,3 +28,8 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.cervejaFav{
+    display: flex;
+    justify-content: center;
+}
