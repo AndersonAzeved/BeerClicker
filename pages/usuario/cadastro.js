@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './styles/cadastro.module.css'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { autenticar, auth, bd } from '../../util/firebase';
 import { useRouter } from 'next/router';
@@ -45,6 +45,11 @@ export default function Cadastrar({users}){
                 .then((userCredential) => {
                     const user = userCredential.user;
                     submitUser(bd, nick, email)
+                    updateProfile(auth.currentUser, {
+                        displayName: nick
+                      }).then(() => {
+                      }).catch((error) => {
+                      });
                     document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
                 })
                 .catch((error) => {
