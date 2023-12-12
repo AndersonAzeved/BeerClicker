@@ -46,7 +46,7 @@ export default function Play({melhorias}){
                 </div>
                 <div className={styles.container}>
                     {melhorias.map((melhoria)=>(
-                        <div className={styles.item} key={melhoria.nome}>
+                        <div className={styles.item} key={melhoria.preco}>
                             <img src={melhoria.foto} alt={melhoria.nome} />
                             <div>{melhoria.nome}</div>
                             <div>{melhoria.preco}</div>

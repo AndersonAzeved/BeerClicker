@@ -6,7 +6,7 @@ export default function Footer(){
     return (
         <footer className={styles.footer}>
             <p>Veja o projeto</p>
-            <a target='_blank' href='https://github.com/AndersonAzeved/BeerClicker'><img src='github.png'></img></a>
+            <a target='_blank' href='https://github.com/AndersonAzeved/BeerClicker'><Image src="/github.png" width={35} height={35} alt='github'/></a>
         </footer>
     )
 }
