@@ -3,6 +3,8 @@ import Link from 'next/link'
 import styles from '../styles/nav.module.css'
 import { useRouter } from 'next/router'
 import {sair, autenticar} from '../util/firebase'
+import Image from 'next/image';
+import OffCanvas from './offCanvas'
 
 export default function Nav(){
     const router = useRouter()
@@ -31,6 +33,7 @@ export default function Nav(){
                     <Link href='/' className={styles.link}><h5>Beer Clicker</h5></Link>
                 </li>
                 <div className={styles.botoes}>
+                    <OffCanvas/>
                     <a href='/usuario/login' onClick={voltar} type="button" className="btn btn-primary btn-sm">Sair</a>
                 </div>
             </ul>
