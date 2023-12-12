@@ -13,36 +13,33 @@ export default function OffCanvas(){
     const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
     const foto = auth.currentUser.photoURL
 
-    if(foto){
-      return (
-        <>
-          <Image src={foto} width={40} height={40} style={{}} onClick={handleShow}/>
-          <Offcanvas show={show} onHide={handleClose}>
-            <Offcanvas.Header closeButton className={styles.header}>
-              <Image src={foto} alt='profile' width={100} height={100} />
-              <Offcanvas.Title>Bem-vindo, {nomeUser}</Offcanvas.Title>            
-            </Offcanvas.Header>
-            <hr/>
-            <Offcanvas.Body className={styles.body}>
-              <details>
-                <summary>Atualizar foto</summary>
-                <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
-              </details>
-              <details>
-                <summary>Ceveja favorita</summary>
-                <Foto/>
-              </details>
-              <details>
-                <summary>Seu ranking</summary>
-                <Foto/>
-              </details>
-            </Offcanvas.Body>
-          </Offcanvas>
-        </>
-      )
-    }else{
-      return(<></>)
-    }
+    
+    return (
+      <>
+        <Image src={foto} width={40} height={40} style={{}} onClick={handleShow}/>
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton className={styles.header}>
+            <Image src={foto} alt='profile' width={100} height={100} />
+            <Offcanvas.Title>Bem-vindo, {nomeUser}</Offcanvas.Title>            
+          </Offcanvas.Header>
+          <hr/>
+          <Offcanvas.Body className={styles.body}>
+            <details>
+              <summary>Atualizar foto</summary>
+              <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
+            </details>
+            <details>
+              <summary>Ceveja favorita</summary>
+              <Foto/>
+            </details>
+            <details>
+              <summary>Seu ranking</summary>
+              <Foto/>
+            </details>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </>
+    )
 }
 
 export function Foto({nick, handleClose, handleShow}){
