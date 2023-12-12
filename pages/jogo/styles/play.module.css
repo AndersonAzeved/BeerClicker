@@ -37,6 +37,12 @@
 
 .beer{
     width: 45%;
+    transition: transform 0.5s ease;
+}
+
+.beer:hover {
+    transform: scale(1.2);
+    filter: brightness(1.5);
 }
 
 @media only screen and (max-device-width: 750px) {
