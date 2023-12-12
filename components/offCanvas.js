@@ -4,13 +4,12 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { auth } from '../util/firebase';
 import { Image } from 'react-bootstrap';
 import styles from '../styles/offCanvas.module.css'
+import { uploadFoto } from '../api/gerenciaFoto';
 
 export default function OffCanvas(){
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
     const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
   
     return (
@@ -27,32 +26,34 @@ export default function OffCanvas(){
               <summary>Atualizar foto</summary>
               <Foto/>
             </details>
-            <hr/>
-            <div className={styles.cervejaFav}>
-              <Image src='/cervejas/amstel lata.png' width={'auto'}/>
-            </div>
-            <br/>
             <details>
-            <summary>Ceveja favorita</summary>
+              <summary>Ceveja favorita</summary>
               <Foto/>
             </details>
-            <hr/>
-            <h6>Seu ranking é 1º</h6>
+            <details>
+              <summary>Seu ranking</summary>
+              <Foto/>
+            </details>
           </Offcanvas.Body>
         </Offcanvas>
       </>
     );
 }
 
-export function Foto(){
-  const enviar = () =>{
-    console.log("enviou")
+export function Foto({nick, handleClose, handleShow}){
+  const [foto, setFoto] = useState()
+  const enviar = (e) =>{
+    e.preventDefault()
+    uploadFoto(nick, foto)
+    handleShow()
+    handleClose()
+    
   }
 
   return(
       <div className={styles.enviarFoto}>
           <form onSubmit={enviar} className={styles.form}>
-              <label className="form-label">Escolha uma imagem pro perfil</label>
+              <label  className="form-label">Escolha uma imagem pro perfil</label>
               <input className="form-control" type="file" />
               <Button className={styles.Button} type='submit'>Enviar</Button>
           </form>

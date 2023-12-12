@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import styles from "./styles/play.module.css"
 import { getMelhorias } from "../../api/melhoriasApi";
 import { useRouter } from "next/router";
+import { getUserMelhorias } from "../../api/userMelhoriasApi";
 
 export default function Play({melhorias}){
     const router = useRouter()
@@ -89,6 +90,7 @@ export async function getStaticProps(){
     
     try{
         const melhorias = await getMelhorias()
+        //const estado = await getUserMelhorias()
 
         return { props: {melhorias} }
     }catch(e){
