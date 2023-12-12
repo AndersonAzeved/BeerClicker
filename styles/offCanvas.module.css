@@ -1,0 +1,30 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.body a{
+    text-decoration: none;
+    color: black;
+}
+
+/*Enviar foto*/
+
+.enviarFoto{
+    padding: 10px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.Button{
+    --bs-btn-padding-y: .25rem; 
+    --bs-btn-padding-x: .5rem; 
+    --bs-btn-font-size: .75rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
