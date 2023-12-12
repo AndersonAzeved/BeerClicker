@@ -11,20 +11,22 @@ export default function OffCanvas(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
-  
+    const foto = auth.currentUser.photoURL
+
+    
     return (
       <>
-        <Image src='/profile.png' width={40} height={40} onClick={handleShow}/>
+        <Image src={foto} width={40} height={40} style={{}} onClick={handleShow}/>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton className={styles.header}>
-            <Image src='/profile.png' alt='profile' width={100} height={100} />
+            <Image src={foto} alt='profile' width={100} height={100} />
             <Offcanvas.Title>Bem-vindo, {nomeUser}</Offcanvas.Title>            
           </Offcanvas.Header>
           <hr/>
           <Offcanvas.Body className={styles.body}>
             <details>
               <summary>Atualizar foto</summary>
-              <Foto/>
+              <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
             </details>
             <details>
               <summary>Ceveja favorita</summary>
@@ -37,7 +39,7 @@ export default function OffCanvas(){
           </Offcanvas.Body>
         </Offcanvas>
       </>
-    );
+    )
 }
 
 export function Foto({nick, handleClose, handleShow}){
@@ -54,7 +56,7 @@ export function Foto({nick, handleClose, handleShow}){
       <div className={styles.enviarFoto}>
           <form onSubmit={enviar} className={styles.form}>
               <label  className="form-label">Escolha uma imagem pro perfil</label>
-              <input className="form-control" type="file" />
+              <input className="form-control" type="file" onChange={(e) => setFoto(e.target.files[0])} name={nick} accept="image/*"/>
               <Button className={styles.Button} type='submit'>Enviar</Button>
           </form>
       </div>
