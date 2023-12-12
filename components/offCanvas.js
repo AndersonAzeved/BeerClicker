@@ -11,7 +11,7 @@ export default function OffCanvas(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
-    const foto = auth.currentUser.photoURL
+    const foto = auth.currentUser.photoURL === null ? '/profile.png' : auth.currentUser.photoURL
 
     
     return (
