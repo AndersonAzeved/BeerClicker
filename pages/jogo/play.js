@@ -44,14 +44,16 @@ export default function Play({melhorias}){
                     <p>Contador: {contador}</p>
                     <img className={styles.beer} onClick={addContador} src="/beer.png"/>
                 </div>
-                <div className={styles.container}>
-                    {melhorias.map((melhoria)=>(
-                        <div className={styles.item} key={melhoria.preco}>
-                            <img src={melhoria.foto} alt={melhoria.nome} />
-                            <div>{melhoria.nome}</div>
-                            <div>{melhoria.preco}</div>
-                        </div>
-                    ))}
+                <div className={styles.melhorias}>
+                    <div className={styles.container}>
+                        {melhorias.map((melhoria)=>(
+                            <div className={styles.item} key={melhoria.preco}>
+                                <img src={melhoria.foto} alt={melhoria.nome} />
+                                <div>{melhoria.nome}</div>
+                                <div>{melhoria.preco}</div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         );
