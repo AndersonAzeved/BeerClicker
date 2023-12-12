@@ -31,10 +31,7 @@ export default function OffCanvas(){
               <summary>Ceveja favorita</summary>
               <Foto/>
             </details>
-            <details>
-              <summary>Seu ranking</summary>
-              <Foto/>
-            </details>
+            <p>Seu ranking é 1º</p>
           </Offcanvas.Body>
         </Offcanvas>
       </>
@@ -49,7 +46,7 @@ export function Foto(){
   return(
       <div className={styles.enviarFoto}>
           <form onSubmit={enviar} className={styles.form}>
-              <label  className="form-label">Escolha uma imagem pro perfil</label>
+              <label className="form-label">Escolha uma imagem pro perfil</label>
               <input className="form-control" type="file" />
               <Button className={styles.Button} type='submit'>Enviar</Button>
           </form>
