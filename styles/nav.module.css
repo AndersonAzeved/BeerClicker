@@ -24,6 +24,7 @@
 
 .botoes{
     gap: 10px;
+    display: flex;
     margin-top: 5px
 }
 
