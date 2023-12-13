@@ -24,7 +24,13 @@
 
 .botoes{
     gap: 10px;
+    margin-top: 5px;
+}
+
+.elementosNav{
     display: flex;
+    gap: 20px;
+    justify-content: flex-end;
 }
 
 @media only screen and (max-device-width: 900px) {

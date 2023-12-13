@@ -32,9 +32,11 @@ export default function Nav(){
                 <li className={styles.li}>
                     <Link href='/' className={styles.link}><h5>Beer Clicker</h5></Link>
                 </li>
-                <div className={styles.botoes}>
+                <div className={styles.elementosNav}>
                     <OffCanvas/>
-                    <a href='/usuario/login' onClick={voltar} type="button" className="btn btn-primary btn-sm">Sair</a>
+                    <div className={styles.botoes}>
+                        <a href='/usuario/login' onClick={voltar} type="button" className="btn btn-primary btn-sm">Sair</a>
+                    </div>
                 </div>
             </ul>
         )

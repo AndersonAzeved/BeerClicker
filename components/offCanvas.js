@@ -16,7 +16,7 @@ export default function OffCanvas(){
     
     return (
       <>
-        <Image src={foto} width={40} height={40} style={{}} onClick={handleShow}/>
+        <Image src={foto} className={styles.imagemNav} onClick={handleShow}/>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton className={styles.header}>
             <Image src={foto} alt='profile' width={100} height={100} />

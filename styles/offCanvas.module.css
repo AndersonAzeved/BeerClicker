@@ -11,6 +11,12 @@
 
 /*Enviar foto*/
 
+.imagemNav{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
 .enviarFoto{
     padding: 10px;
     position: relative;
