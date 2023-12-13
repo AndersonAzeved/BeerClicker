@@ -11,10 +11,13 @@ export default function Login(){
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   
   if(autenticar()){
-    router.push('/jogo/play')
+    const nick = auth.currentUser.displayName
+    router.push({
+      pathname: "/jogo/[nick]",
+      query: {nick: nick}
+    })
   }else{
     const login = (e) => {
       e.preventDefault()

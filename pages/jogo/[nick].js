@@ -6,6 +6,7 @@ import styles from "./styles/play.module.css"
 import { getMelhorias } from "../../api/melhoriasApi";
 import { useRouter } from "next/router";
 import { getUserMelhorias } from "../../api/userMelhoriasApi";
+import { async } from "@firebase/util";
 
 export default function Play({status}){
     const router = useRouter()
@@ -82,10 +83,19 @@ export async function getDb(){
     teste.map((x)=>{console.log(x.nome)})   
 }
 
-export async function getStaticProps(){  
-    const nick = 'Anderson Azevedo da Silva'
+export async function getStaticPaths(){
+    return{
+        paths:[
+            {params: {nick: "Anderson Azevedo da Silva"}},
+            {params: {nick: "Jogador"}}
+        ],fallback: true
+    }
+}
+
+export async function getStaticProps({params}){  
+    
     const melhorias = await getMelhorias()
-    const status = await getUserMelhorias(nick)
+    const status = await getUserMelhorias(params.nick)
     
     return { props: {status: status, melhorias: melhorias} }
 }

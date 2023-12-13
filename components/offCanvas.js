@@ -4,7 +4,6 @@ import { auth } from '../util/firebase';
 import { Image } from 'react-bootstrap';
 import styles from '../styles/offCanvas.module.css'
 import { uploadFoto } from '../api/gerenciaFoto';
-import { auto } from '@popperjs/core';
 
 
 export default function OffCanvas(){
