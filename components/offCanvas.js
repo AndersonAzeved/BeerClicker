@@ -4,6 +4,7 @@ import { auth } from '../util/firebase';
 import { Image } from 'react-bootstrap';
 import styles from '../styles/offCanvas.module.css'
 import { uploadFoto } from '../api/gerenciaFoto';
+import { auto } from '@popperjs/core';
 
 
 export default function OffCanvas(){
@@ -22,15 +23,21 @@ export default function OffCanvas(){
             <Offcanvas.Title>Bem-vindo, {nomeUser}</Offcanvas.Title>            
           </Offcanvas.Header>
           <hr/>
+
           <Offcanvas.Body className={styles.body}>
             <details className={styles.details}>
               <summary className={styles.summary}>Atualizar foto</summary>
               <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
             </details>
+
             <hr/>
+
+            <div className={styles.divCervejaFav}>
+              <Image src='/beer.png' className={styles.cervejaFav}/>
+            </div>
             <details className={styles.details}>
               <summary className={styles.summary}>Ceveja favorita</summary>
-              
+
             </details>
             <hr/>
             <details className={styles.desDetails}>
