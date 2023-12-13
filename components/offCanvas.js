@@ -49,7 +49,6 @@ export function Foto({nick, handleClose, handleShow}){
     uploadFoto(nick, foto)
     handleShow()
     handleClose()
-    
   }
 
   return(
