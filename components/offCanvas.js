@@ -17,9 +17,9 @@ export default function OffCanvas(){
     return (
       <>
         <Image src={foto} className={styles.imagemNav} onClick={handleShow}/>
-        <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas show={show} onHide={handleClose} className={styles.offCanvas}>
           <Offcanvas.Header closeButton className={styles.header}>
-            <Image src={foto} alt='profile' width={100} height={100} />
+            <Image src={foto} alt='profile' className={styles.imageCanvas}/>
             <Offcanvas.Title>Bem-vindo, {nomeUser}</Offcanvas.Title>            
           </Offcanvas.Header>
           <hr/>
@@ -28,14 +28,13 @@ export default function OffCanvas(){
               <summary>Atualizar foto</summary>
               <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
             </details>
+            <hr/>
+            <Image alt='cerveja favorita' src='/cervejas/amstel lata.png'/>
             <details>
-              <summary>Ceveja favorita</summary>
-              <Foto/>
+              <summary>Cerveja favorita</summary>
             </details>
-            <details>
-              <summary>Seu ranking</summary>
-              <Foto/>
-            </details>
+            <hr/>
+            <h6>Seu ranking 1º</h6>
           </Offcanvas.Body>
         </Offcanvas>
       </>
@@ -49,14 +48,13 @@ export function Foto({nick, handleClose, handleShow}){
     uploadFoto(nick, foto)
     handleShow()
     handleClose()
-    
   }
 
   return(
       <div className={styles.enviarFoto}>
           <form onSubmit={enviar} className={styles.form}>
-              <label  className="form-label">Escolha uma imagem pro perfil</label>
-              <input className="form-control" type="file" onChange={(e) => setFoto(e.target.files[0])} name={nick} accept="image/*"/>
+              <label className="form-label">Escolha uma imagem pro perfil</label>
+              <input className="form-control form-control-sm" id="formFileSm" type="file" onChange={(e) => setFoto(e.target.files[0])} name={nick} accept="image/*"/>
               <Button className={styles.Button} type='submit'>Enviar</Button>
           </form>
       </div>
