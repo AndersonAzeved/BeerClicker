@@ -23,17 +23,19 @@ export default function OffCanvas(){
           </Offcanvas.Header>
           <hr/>
           <Offcanvas.Body className={styles.body}>
-            <details>
-              <summary>Atualizar foto</summary>
+            <details className={styles.details}>
+              <summary className={styles.summary}>Atualizar foto</summary>
               <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
             </details>
             <hr/>
-            <details>
-              <summary>Ceveja favorita</summary>
+            <details className={styles.details}>
+              <summary className={styles.summary}>Ceveja favorita</summary>
               
             </details>
             <hr/>
-            <h6>Seu ranking 1º</h6>
+            <details className={styles.desDetails}>
+              <summary className={styles.desSummary}>Seu ranking 1º</summary>
+            </details>            
           </Offcanvas.Body>
         </Offcanvas>
       </>
