@@ -33,3 +33,9 @@
     display: flex;
     justify-content: center;
 }
+
+.imgNav{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
