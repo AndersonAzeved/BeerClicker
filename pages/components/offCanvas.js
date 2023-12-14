@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { auth } from '../util/firebase';
+import { auth } from '../../util/firebase';
 import { Image } from 'react-bootstrap';
-import styles from '../styles/offCanvas.module.css'
-import { uploadFoto } from '../api/gerenciaFoto';
+import styles from '../../styles/offCanvas.module.css'
+import { uploadFoto } from '../../api/gerenciaFoto';
+import { updateProfile } from 'firebase/auth';
 
 
 export default function OffCanvas(){
@@ -28,9 +29,12 @@ export default function OffCanvas(){
               <Foto nick={nomeUser} handleShow={handleShow} handleClose={handleClose}/>
             </details>
             <hr/>
+            <div className={styles.divCervejaFav}>
+              <Image src={foto} className={styles.cervejaFav}/>
+            </div>
             <details className={styles.details}>
               <summary className={styles.summary}>Ceveja favorita</summary>
-              
+              <CervejaFav/>
             </details>
             <hr/>
             <details className={styles.desDetails}>
@@ -59,5 +63,48 @@ export function Foto({nick, handleClose, handleShow}){
               <button className="btn btn-outline-warning btn-sm" type='submit'>Enviar</button>
           </form>
       </div>
+  )
+}
+
+export function CervejaFav(){
+  const [favorita, setFav] = useState('')
+  const favs = [
+    {nome: 'Amstel',  caminho:'amstel.png'},
+    {nome: 'Antarctica', caminho: 'antarctica.png'}	,
+    {nome: 'Bavaria', caminho: 'bavaria.png'}	,
+    {nome: 'Becks', caminho: 'becks.png'},
+    {nome: 'Bohemia', caminho: 'bohemia.png'}	,
+    {nome: 'Brahma', caminho: 'brahma.png'}	,
+    {nome: 'Corona', caminho: 'corona.png'}	,
+    {nome: 'Crystal', caminho: 'crystal.png'}	,
+    {nome: 'Eisenbahn', caminho: 'eisenbahn.png'}	,
+    {nome: 'Heineken', caminho: 'heineken.png'}	,
+    {nome: 'Itaipava', caminho: 'itaipava.png'}	,
+    {nome: 'Kaiser', caminho: 'kaiser.png'	},
+    {nome: 'Schin', caminho: 'schin.png'}	,
+    {nome: 'Skol', caminho: 'skol.png'}	,
+    {nome: 'Stella', caminho: 'stella.png'}	,
+    {nome: 'Tiger', caminho: 'tiger.png'	}
+  ]
+
+  const favoritar = (e) => {
+    e.preventDefault()
+    var select = document.getElementById('floatingSelectGrid')
+    select.addEventListener('change', () => {
+      setFav(select.value)
+    })
+    console.log(favorita)
+    
+  }
+
+  
+  
+  return(
+    <form className="form-floating" >
+      <select className="form-select" id="floatingSelectGrid">
+        {favs.map((fav) => <option value={fav.caminho} key={fav.caminho}>{fav.nome}</option>)}
+      </select>
+      <button>Favoritar</button>
+    </form>
   )
 }

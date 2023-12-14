@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import styles from '../styles/nav.module.css'
+import styles from '../../styles/nav.module.css'
 import { useRouter } from 'next/router'
-import {sair, autenticar} from '../util/firebase'
+import {sair, autenticar} from '../../util/firebase'
 import Image from 'next/image';
 import OffCanvas from './offCanvas'
 
