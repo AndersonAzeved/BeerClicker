@@ -1,4 +1,4 @@
-import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc, getDoc } from 'firebase/firestore';
 import { bd, app } from '../util/firebase';
 import { getMelhorias } from './melhoriasApi';
 
