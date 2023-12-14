@@ -2,16 +2,19 @@ import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc } 
 import { bd, app } from '../util/firebase';
 import { getMelhorias } from './melhoriasApi';
 
-//export async function getMelhorias() {
-//    const firestore = getFirestore(db);
-//    const melhoriasCollection = collection(firestore, 'melhorias');
-//    const querySnapshot = await getDocs(melhoriasCollection);
-//    const desordenado = querySnapshot.docs.map(doc => doc.data());
-//
-//    const melhorias = desordenado.sort((a,b)=> a.preco - b.preco)
-//
-//    return melhorias;
-//}
+// export async function getAllUsers() {
+//     const firestore = getFirestore(app);
+//     const usersCollection = collection(firestore, 'melhorias');
+//     const usersQuery = query(usersCollection, where('nick', '!=', null));
+//     const querySnapshot = await getDocs(usersQuery);
+//     const users = querySnapshot.docs.map(doc => {
+    
+//         return{ params: { nick: doc.data().nick}}
+    
+//     });
+
+//    return users;
+// }
 
 
 export async function getUserMelhorias(nick){

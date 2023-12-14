@@ -5,14 +5,14 @@ import { Button } from "react-bootstrap";
 import styles from "./styles/play.module.css"
 import { getMelhorias } from "../../api/melhoriasApi";
 import { useRouter } from "next/router";
-import { getAllUsers, getUserMelhorias } from "../../api/userMelhoriasApi";
+import { atualizeUserMelhorias, getUserMelhorias } from "../../api/userMelhoriasApi";
 
 export default function Play(props){
     const router = useRouter()
     const { nick } = router.query
 
     const [clock, setClock] = useState(0);
-    const [contador, setContador] = useState(0)
+    const [contador, setContador] = useState(props.estado.total)
 
    console.log(props)
     useEffect(() => {
@@ -35,6 +35,32 @@ export default function Play(props){
         router.push('/usuario/login')
     }
 
+    const comprarMelhoria = (melhoria) =>{
+        const melhorias = props.estado.melhorias.map((melh)=>{if(props.estado.melhorias.indexOF(melh) == props.melhorias.indexOf(melhoria)){melh = melh+1}})
+        const data = {
+            email: auth.currentUser.email,
+            foto: "",
+            melhorias: melhorias,
+            click: 1,
+            total: contador,
+            nick: nick
+        }
+        atualizeUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
+    }
+
+    const salvar = () =>{
+        console.log(contador)
+        const data = {
+            email: auth.currentUser.email,
+            foto: "",
+            melhorias: props.estado.melhorias,
+            click: 1,
+            total: contador,
+            nick: nick
+        }
+        atualizeUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
+    }
+
     if(autenticar()){
         if(props == {}){
             return(<div>carregando</div>)
@@ -46,13 +72,15 @@ export default function Play(props){
                     <Button onClick={voltar}>Sair</Button>
                 </div>
                 <div className={styles.container}>
-                    <p>Contador: {contador}</p>
                     <img className={styles.beer} onClick={addContador} src="/beer.png"/>
+                    <br/><br/>
+                    <div id="contador">{contador}</div>
+                    <div><button onClick={salvar}>salvar</button></div>
                 </div>
                 <div className={styles.melhorias}>
                     <div className={styles.container}>
                         {props.melhorias.map((melhoria)=>(
-                            <div className={styles.item} key={melhoria.preco}>
+                            <div onClick={() => comprarMelhoria(melhoria)} className={styles.item} key={melhoria.preco}>
                                 <img src={melhoria.foto} alt={melhoria.nome} />
                                 <div>{melhoria.nome}</div>
                                 <div>{melhoria.preco}</div>
@@ -70,7 +98,6 @@ export default function Play(props){
 }
 
 export async function getStaticPaths(){
-
     return {
         paths:[
             {params: {nick: "joaozin"}},
