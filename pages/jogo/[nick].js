@@ -5,14 +5,14 @@ import { Button } from "react-bootstrap";
 import styles from "./styles/play.module.css"
 import { getMelhorias } from "../../api/melhoriasApi";
 import { useRouter } from "next/router";
-import { atualizeUserMelhorias, getUserMelhorias } from "../../api/userMelhoriasApi";
+import { updateUserMelhorias, getUserMelhorias } from "../../api/userMelhoriasApi";
 
 export default function Play(props){
     const router = useRouter()
     const { nick } = router.query
 
     const [clock, setClock] = useState(0);
-    const [contador, setContador] = useState(props.estado.total)
+    const [contador, setContador] = useState(0)
 
    console.log(props)
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Play(props){
             total: contador,
             nick: nick
         }
-        atualizeUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
+        updateUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
     }
 
     const salvar = () =>{
@@ -58,43 +58,51 @@ export default function Play(props){
             total: contador,
             nick: nick
         }
-        atualizeUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
+        updateUserMelhorias(nick,data).then(()=>{return true}).catch((e)=>{return false})
     }
 
-    if(autenticar()){
-        if(props == {}){
-            return(<div>carregando</div>)
-        }
-        return (
-            <div className={styles.layout}>
-                <div className={styles.container}>
-                    <p>Clock: {clock}</p>
-                    <Button onClick={voltar}>Sair</Button>
-                </div>
-                <div className={styles.container}>
-                    <img className={styles.beer} onClick={addContador} src="/beer.png"/>
-                    <br/><br/>
-                    <div id="contador">{contador}</div>
-                    <div><button onClick={salvar}>salvar</button></div>
-                </div>
-                <div className={styles.melhorias}>
+    if(props.estado?.total == undefined || props.estado.total == null){
+        return(<div>fndsffnsdfnsfmn</div>)
+    }else{
+        () => setContador(props?.estado.total)
+        if(auth.currentUser){
+            if(props == {}){
+                return(<div>carregando</div>)
+            }
+            return (
+                <div className={styles.layout}>
                     <div className={styles.container}>
-                        {props.melhorias.map((melhoria)=>(
-                            <div onClick={() => comprarMelhoria(melhoria)} className={styles.item} key={melhoria.preco}>
-                                <img src={melhoria.foto} alt={melhoria.nome} />
-                                <div>{melhoria.nome}</div>
-                                <div>{melhoria.preco}</div>
-                            </div>
-                        ))}
+                        <p>Clock: {clock}</p>
+                        <Button onClick={voltar}>Sair</Button>
+                    </div>
+                    <div className={styles.container}>
+                        <img className={styles.beer} onClick={addContador} src="/beer.png"/>
+                        <br/><br/>
+                        <div id="contador">{contador}</div>
+                        <div><button onClick={salvar}>salvar</button></div>
+                    </div>
+                    <div className={styles.melhorias}>
+                        <div className={styles.container}>
+                            {props?.melhorias.map((melhoria)=>(
+                                <div onClick={() => comprarMelhoria(melhoria)} className={styles.item} key={melhoria.preco}>
+                                    <img src={melhoria.foto} alt={melhoria.nome} />
+                                    <div>{melhoria.nome}</div>
+                                    <div>{melhoria.preco}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
-    }else{
-        return(
-            <div>Error!!</div>
-        )
+            );
+        }else{
+            return(
+                <div>Error!!</div>
+            )
+        }
     }
+
+
+    
 }
 
 export async function getStaticPaths(){
