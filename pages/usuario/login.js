@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
 import { autenticar, auth, sair } from '../../util/firebase';
 import { useRouter } from 'next/router';
+import { getUserByEmail } from '../../api/userMelhoriasApi';
 
 
 export default function Login(){
@@ -13,14 +14,19 @@ export default function Login(){
   const [password, setPassword] = useState('')
 
   
-  if(autenticar()){
-    router.push('/jogo/play')
-  }else{
+  if(!autenticar()){
     const login = (e) => {
       e.preventDefault()
 
       signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         document.getElementById('formLogin').innerHTML = '<h3>Log in com sucesso</h3>'
+        getUserByEmail(email).then((usuario) => {
+          const nick = usuario.nick
+          router.push({
+            pathname: '/jogo/[nick]',
+            query: {nick: nick}
+          })
+        }).catch((error)=>{console.log("algo deu errado",error)})
 
       }).catch((error) => {
         const errorCode = error.code
