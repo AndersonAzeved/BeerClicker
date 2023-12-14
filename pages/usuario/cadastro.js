@@ -3,10 +3,11 @@ import Form from 'react-bootstrap/Form';
 import styles from './styles/cadastro.module.css'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
-import { autenticar, auth, bd } from '../../util/firebase';
+import { autenticar, auth, sair, bd } from '../../util/firebase';
 import { useRouter } from 'next/router';
 import { getUsers } from '../../api/usersApi';
 import { doc, setDoc } from 'firebase/firestore';
+import { createUserMelhorias } from '../../api/userMelhoriasApi';
 
 
 export default function Cadastrar({users}){
@@ -18,6 +19,7 @@ export default function Cadastrar({users}){
     const [emailCad, setEmailCad] = useState(false)
 
     if(autenticar()){
+        sair()
         router.push('/usuario/login')
     }else{     
         const cadastrar = (e) => { // Falta verificar o link
@@ -43,14 +45,16 @@ export default function Cadastrar({users}){
             }else{
                 createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    const user = userCredential.user;
-                    submitUser(bd, nick, email)
-                    updateProfile(auth.currentUser, {
-                        displayName: nick
-                      }).then(() => {
-                      }).catch((error) => {
-                      });
-                    document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
+                    createUserMelhorias(nick, email).then(()=>{
+                        const user = userCredential.user;
+                        submitUser(bd, nick, email)
+                        updateProfile(auth.currentUser, {
+                            displayName: nick
+                        }).then(() => {
+                        }).catch((error) => {
+                        });
+                        document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
+                    }).catch((error)=>{})
                 })
                 .catch((error) => {
                     const errorCode = error.code;
