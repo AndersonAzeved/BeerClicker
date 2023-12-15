@@ -12,7 +12,7 @@ export default function Play(props){
     const { nick } = router.query
 
     const [clock, setClock] = useState(0);
-    const [contador, setContador] = useState(props.estado.total)
+    const [contador, setContador] = useState(props.estado?.total)
     const [estado, setEstado] = useState()
     let producoes = 0
     for (let index = 1; index < 17; index++) {
@@ -106,7 +106,7 @@ export default function Play(props){
         updateUserMelhorias(nick,data,true).then(()=>{console.log('salvou')}).catch((e)=>{console.log("não salvou")})
     }
 
-    if(props.estado?.total == undefined || props.estado.total == null){
+    if(props.estado?.total == undefined || props.estado?.total == null){
         return(<div>fndsffnsdfnsfmn</div>)
     }else{
         const addContador = () =>{
