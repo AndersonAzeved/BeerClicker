@@ -34,6 +34,12 @@
     width: 300px;
     height: 64px;
     background-image: url("/storeTileLine.jpg");
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease
+}
+
+.item:hover {
+    transform: scale(1.1);
 }
 
 .melhoria_details{
@@ -51,6 +57,7 @@
 .beer{
     width: 45%;
     transition: transform 0.5s ease;
+    cursor: pointer;
 }
 
 .beer:hover {

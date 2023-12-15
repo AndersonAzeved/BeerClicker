@@ -107,14 +107,14 @@ export default function Play(props){
     }
 
     if(props.estado?.total == undefined || props.estado?.total == null){
-        return(<div>fndsffnsdfnsfmn</div>)
+        return(<CervejaSpin/>)
     }else{
         const addContador = () =>{
             setContador((a) => a + click)
         }
         if(nick){
             if(props == {}){
-                return(<div>carregando</div>)
+                return(<CervejaSpin/>)
             }
             return (
                 <div className={styles.layout}>
@@ -169,7 +169,7 @@ export default function Play(props){
             );
         }else{
             return(
-                <div>Error!!</div>
+                <CervejaSpin/>
             )
         }
     }
@@ -184,6 +184,7 @@ export async function getStaticPaths(){
             {params: {nick: "marlin"}},
             {params: {nick: "Anderson Azevedo da Silva"}},
             {params: {nick: "testador2"}},
+            {params: {nick: "testando"}},
         ],
         fallback: true
     }
@@ -213,4 +214,16 @@ export async function getStaticProps({ params }){
             notFound: true,
         };
     }
+}
+
+export function CervejaSpin(){
+    return(
+        <div className={styles.spin}>
+            <img
+                className={styles.beerimage}
+                src="/beer.png"
+                alt="Beer"
+            />
+        </div>
+    )
 }

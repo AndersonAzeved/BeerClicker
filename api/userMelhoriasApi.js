@@ -1,4 +1,4 @@
-import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc} from 'firebase/firestore';
+import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc, updateDoc} from 'firebase/firestore';
 import { bd, app } from '../util/firebase';
 import { getMelhorias } from './melhoriasApi';
 
@@ -48,7 +48,8 @@ export async function createUserMelhorias(id_nick, email){
         click: 1,
         total: 0,
         nick: id_nick,
-        producao: 0
+        producao: 0,
+        cervejaFav: '/beer.png'
     });
 }
 
