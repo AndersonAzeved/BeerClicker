@@ -44,15 +44,44 @@ export default function Play(props){
         router.push('/usuario/login')
     }
 
-    const comprarMelhoria = (melhoria) =>{
-        const melhorias = props.estado.melhorias.map((melh)=>{if(props.estado.melhorias.indexOF(melh) == props.melhorias.indexOf(melhoria)){melh = melh+1}})
-        const data = {
-            email: auth.currentUser.email,
-            foto: "",
-            melhorias: melhorias,
-            click: 1,
-            total: contador,
-            nick: nick
+    const comprarMelhoria = (indice) =>{
+        let val_cont = document.getElementById('contador').textContent
+        let mult = val_cont[val_cont.length - 1];
+        let val_total = 0
+        val_total = (mult == 'K') ? (parseFloat(val_cont) * (1000**1)):
+                        (mult == 'M') ? (parseFloat(val_cont) * (1000**2)):
+                            (mult == 'B') ? (parseFloat(val_cont) * (1000**3)):
+                                (mult == 'T') ? (parseFloat(val_cont) * (1000**4)):
+                                    (mult == 'A') ? (parseFloat(val_cont) * (1000**5)):
+                                        (parseInt(val_cont) * 1000**0)
+
+        let val_preco = document.getElementById(props.melhorias[indice].nome).textContent
+        let mult_preco = val_preco[val_preco.length - 1];
+        let preco_total = 0
+        preco_total = (mult_preco == 'K') ? (parseFloat(val_preco) * (1000**1)):
+                        (mult_preco == 'M') ? (parseFloat(val_preco) * (1000**2)):
+                            (mult_preco == 'B') ? (parseFloat(val_preco) * (1000**3)):
+                                (mult_preco == 'T') ? (parseFloat(val_preco) * (1000**4)):
+                                    (mult_preco == 'A') ? (parseFloat(val_preco) * (1000**5)):
+                                        (parseInt(val_preco) * 1000**0)
+        if(preco_total <= val_total){
+            setContador((prevCont) => prevCont - preco_total)
+            if(indice > 0){
+                const val = props.melhorias[indice].producao
+                setProducao(producao+val)
+            }else{
+                setClick( 1 + (props.melhorias[indice].producao * (parseInt(document.getElementById(indice).textContent) + 1)))
+            }
+            let melhorias = props.estado.melhorias
+            melhorias[indice] += 1
+            const data = {
+                melhorias: melhorias,
+                click: click,
+                total: val_total,
+                producao: parseFloat(producao)
+            }
+            document.getElementById(indice).innerHTML = `<div>${melhorias[indice]}</div>`
+            updateUserMelhorias(nick,data,true).then(()=>{console.log('comprou')}).catch((e)=>{console.log("não comprou")})
         }
     }
 
@@ -78,14 +107,14 @@ export default function Play(props){
     }
 
     if(props.estado?.total == undefined || props.estado.total == null){
-        return(<CervejaSpin/>)
+        return(<div>fndsffnsdfnsfmn</div>)
     }else{
         const addContador = () =>{
             setContador((a) => a + click)
         }
         if(nick){
             if(props == {}){
-                return(<CervejaSpin/>)
+                return(<div>carregando</div>)
             }
             return (
                 <div className={styles.layout}>
@@ -140,8 +169,7 @@ export default function Play(props){
             );
         }else{
             return(
-                //<div>Error!!</div>
-                <CervejaSpin/>
+                <div>Error!!</div>
             )
         }
     }
@@ -185,17 +213,4 @@ export async function getStaticProps({ params }){
             notFound: true,
         };
     }
-}
-
-
-export function CervejaSpin(){
-    return(
-        <div className={styles.spin}>
-            <img
-                className={styles.beerimage}
-                src="/beer.png"
-                alt="Beer"
-            />
-        </div>
-    )
 }
