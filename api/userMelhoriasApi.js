@@ -62,3 +62,8 @@ export async function updateUserMelhorias(id_nick, doc_data, merge){
         await createUserMelhorias(id_nick)
     }
 }
+
+export async function updateCervejaFav(nick, cervejaFav){
+    const docRef = doc(bd, "user_melhorias", nick)
+    await updateDoc(docRef, cervejaFav)
+}
