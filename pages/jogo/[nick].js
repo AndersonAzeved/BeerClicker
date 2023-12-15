@@ -181,7 +181,7 @@ export default function Play(props){
 export async function getStaticPaths(){
     return {
         paths:[
-            {params: {nick: "joaozin"}},
+            {params: {nick: "marlin"}},
             {params: {nick: "Anderson Azevedo da Silva"}},
             {params: {nick: "testador2"}},
         ],
