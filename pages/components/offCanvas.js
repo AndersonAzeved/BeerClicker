@@ -18,8 +18,8 @@ export default function OffCanvas(){
     })
     .catch(error => {});
 
-    const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
-    const foto = auth.currentUser.photoURL === null ? '/profile.png' : auth.currentUser.photoURL
+    const nomeUser = auth.currentUser?.displayName === null ? 'Jogador' : auth.currentUser?.displayName
+    const foto = auth.currentUser?.photoURL === null ? '/profile.png' : auth.currentUser?.photoURL
     //const foto = estado.foto === null || estado.foto === '' ? '/profile.png' : estado.foto
     const urlCervFav = estado?.cervFav
     return (
@@ -106,7 +106,7 @@ export function CervejaFav(){
     select.addEventListener('change', () => {
       setFav(select.value)
     })
-    updateCervejaFav(auth.currentUser.displayName, {cervFav: favorita}).then(()=>{return true}).catch((e)=>{return false})
+    updateCervejaFav(auth.currentUser?.displayName, {cervFav: favorita}).then(()=>{return true}).catch((e)=>{return false})
   }
 
   
