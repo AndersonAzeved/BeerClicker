@@ -61,12 +61,12 @@ export default function Play(props){
     }
 
     if(props.estado?.total == undefined || props.estado.total == null){
-        return(<div>fndsffnsdfnsfmn</div>)
+        return(<CervejaSpin/>)
     }else{
         () => setContador(props?.estado.total)
         if(auth.currentUser){
             if(props == {}){
-                return(<div>carregando</div>)
+                return(<CervejaSpin/>)
             }
             return (
                 <div className={styles.layout}>
@@ -95,7 +95,8 @@ export default function Play(props){
             );
         }else{
             return(
-                <div>Error!!</div>
+                //<div>Error!!</div>
+                <CervejaSpin/>
             )
         }
     }
@@ -139,4 +140,17 @@ export async function getStaticProps({ params }){
             notFound: true,
         };
     }
+}
+
+
+export function CervejaSpin(){
+    return(
+        <div className={styles.spin}>
+            <img
+                className={styles.beerimage}
+                src="/beer.png"
+                alt="Beer"
+            />
+        </div>
+    )
 }

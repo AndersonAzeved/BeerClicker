@@ -12,7 +12,7 @@ export default function OffCanvas(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [estado, setEstado] = useState({})
-    getUserMelhorias(auth.currentUser.displayName)
+    getUserMelhorias(auth.currentUser?.displayName)
     .then(estado => {
       setEstado(estado)
     })
