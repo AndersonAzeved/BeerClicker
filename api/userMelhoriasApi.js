@@ -1,6 +1,7 @@
-import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc} from 'firebase/firestore';
+import { getFirestore, doc, collection, query, where, getDocs, setDoc, getDoc, updateDoc} from 'firebase/firestore';
 import { bd, app } from '../util/firebase';
 import { getMelhorias } from './melhoriasApi';
+import { async } from '@firebase/util';
 
 // export async function getAllUsers() {
 //     const firestore = getFirestore(app);
@@ -47,7 +48,8 @@ export async function createUserMelhorias(id_nick, email){
         melhorias: melhorias.map(()=>0),
         click: 1,
         total: 0,
-        nick: id_nick
+        nick: id_nick,
+        cervFav: '/beer.png'
     });
 }
 
@@ -60,4 +62,9 @@ export async function updateUserMelhorias(id_nick, doc_data){
     } else {
         await createUserMelhorias(id_nick)
     }
+}
+
+export async function updateCervejaFav(nick, cervejaFav){
+    const docRef = doc(bd, "user_melhorias", nick)
+    await updateDoc(docRef, cervejaFav)
 }

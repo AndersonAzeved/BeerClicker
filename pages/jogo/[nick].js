@@ -14,7 +14,6 @@ export default function Play(props){
     const [clock, setClock] = useState(0);
     const [contador, setContador] = useState(0)
 
-   console.log(props)
     useEffect(() => {
         // Define um intervalo de 1000 milissegundos (1 segundo)
         const intervalId = setInterval(() => {

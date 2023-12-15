@@ -16,7 +16,7 @@
 .melhorias{
     overflow-y: scroll;
     height: 500px;
-    width: 350px;
+    width: 400px;
 }
 
 .item{
@@ -34,8 +34,13 @@
     width: 300px;
     height: 64px;
     background-image: url("/storeTileLine.jpg");
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease
 }
 
+.item:hover {
+    transform: scale(1.1);
+}
 
 .item img{
     width:50px;

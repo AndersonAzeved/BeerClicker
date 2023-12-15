@@ -10,7 +10,7 @@ export async function uploadFoto(nick, foto){
     const uploadTask = uploadBytesResumable(storageRef, foto)
 
     getDownloadURL(storageRef).then((url) => {
-        createUserMelhorias(nick, url)
+        //createUserMelhorias(nick, url)
         updateProfile(auth.currentUser, {
             photoURL: url
         }).then(()=>{}).catch((error)=>{})
