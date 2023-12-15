@@ -36,6 +36,13 @@
     background-image: url("/storeTileLine.jpg");
 }
 
+.melhoria_details{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .item img{
     width:50px;

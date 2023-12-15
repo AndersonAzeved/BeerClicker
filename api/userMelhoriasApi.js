@@ -47,16 +47,17 @@ export async function createUserMelhorias(id_nick, email){
         melhorias: melhorias.map(()=>0),
         click: 1,
         total: 0,
-        nick: id_nick
+        nick: id_nick,
+        producao: 0
     });
 }
 
-export async function updateUserMelhorias(id_nick, doc_data){
+export async function updateUserMelhorias(id_nick, doc_data, merge){
     const docRef = doc(bd, "user_melhorias", id_nick);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        await setDoc(docRef, doc_data)
+        await setDoc(docRef, doc_data, {merge: merge})
     } else {
         await createUserMelhorias(id_nick)
     }
