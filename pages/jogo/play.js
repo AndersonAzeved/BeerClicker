@@ -65,27 +65,6 @@ export default function Play({melhorias}){
     }
 }
 
-export async function submitDb(db, nome, desc, prod, prec){
-    try {
-        const docRef = await addDoc(collection(db, "melhoria"), {
-            nome: nome,
-            descricao: desc,
-            producao: prod,
-            preco: prec,
-            foto: "" 
-        });
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-}
-
-export async function getDb(){
-    const querySnapshot = await getDocs(collection(bd, "melhorias"));
-    const teste = querySnapshot.docs.map((doc) => doc.data());
-    teste.map((x)=>{console.log(x.nome)})   
-}
-
 export async function getStaticProps(){
     
     try{
