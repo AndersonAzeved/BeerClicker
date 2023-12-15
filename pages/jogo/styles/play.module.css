@@ -16,7 +16,7 @@
 .melhorias{
     overflow-y: scroll;
     height: 500px;
-    width: 350px;
+    width: 400px;
 }
 
 .item{
@@ -34,6 +34,8 @@
     width: 300px;
     height: 64px;
     background-image: url("/storeTileLine.jpg");
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease
 }
 
 .melhoria_details{
@@ -67,3 +69,26 @@
         gap: 20px;
     }
 }
+
+
+/* Spin */
+.spin {
+    justify-content: center;
+    display: flex;
+}
+  
+.beerimage {
+    width: 75px;
+    height: 75px;
+    animation: spin 1s linear infinite; 
+}
+  
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+  

@@ -14,7 +14,7 @@ export default function Cadastrar({users}){
     const router = useRouter()
     const [email, setEmail] = useState(' ')
     const [password, setPassword] = useState(' ')
-    const [nick, setNick] = useState(' ')
+    const [nick, setNick] = useState('')
     const [nickCad, setNickCad] = useState(false)
     const [emailCad, setEmailCad] = useState(false)
 
@@ -38,21 +38,14 @@ export default function Cadastrar({users}){
                 }
             })
 
-            if(nickCad == true || emailCad == true){
-                document.getElementById('avisos').innerHTML = 'Nickname já cadastrado'
-                setNickCad(false)
-                setEmailCad(false)
-            }else{
+            if(nickCad == false && emailCad == false){
                 createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     createUserMelhorias(nick, email).then(()=>{
                         const user = userCredential.user;
+                        updateProfile(user, {
+                            displayName: nick}).then(() => {}).catch((error) => {});
                         submitUser(bd, nick, email)
-                        updateProfile(auth.currentUser, {
-                            displayName: nick
-                        }).then(() => {
-                        }).catch((error) => {
-                        });
                         document.getElementById('formCadastro').innerHTML = '<h3>Cadstrado realizado<h3>'
                     }).catch((error)=>{})
                 })
@@ -69,6 +62,11 @@ export default function Cadastrar({users}){
                         document.getElementById('avisos').innerHTML = '*Verifique as informações'
                     }
                 })
+                
+            }else{
+                document.getElementById('avisos').innerHTML = 'Nickname já cadastrado'
+                setNickCad(false)
+                setEmailCad(false)
             }
         }
 

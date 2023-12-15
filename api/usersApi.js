@@ -1,8 +1,8 @@
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app, db } from '../util/firebase';
+import { app } from '../util/firebase';
 
 export async function getUsers() {
-  const firestore = getFirestore(db)
+  const firestore = getFirestore(app)
   const userCollection = collection(firestore, 'user')
   const querySnapshot = await getDocs(userCollection)
   const users = querySnapshot.docs.map((doc) => ({

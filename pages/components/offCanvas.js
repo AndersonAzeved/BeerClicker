@@ -4,16 +4,24 @@ import { auth } from '../../util/firebase';
 import { Image } from 'react-bootstrap';
 import styles from '../../styles/offCanvas.module.css'
 import { uploadFoto } from '../../api/gerenciaFoto';
-import { updateProfile } from 'firebase/auth';
+import { getUserMelhorias, updateCervejaFav } from '../../api/userMelhoriasApi';
 
 
 export default function OffCanvas(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const nomeUser = auth.currentUser.displayName === null ? 'Jogador' : auth.currentUser.displayName
-    const foto = auth.currentUser.photoURL === null ? '/profile.png' : auth.currentUser.photoURL
-  
+    const [estado, setEstado] = useState({})
+    getUserMelhorias(auth.currentUser?.displayName)
+    .then(estado => {
+      setEstado(estado)
+    })
+    .catch(error => {});
+
+    const nomeUser = auth.currentUser?.displayName === null ? 'Jogador' : auth.currentUser?.displayName
+    const foto = auth.currentUser?.photoURL === null ? '/profile.png' : auth.currentUser?.photoURL
+    //const foto = estado.foto === null || estado.foto === '' ? '/profile.png' : estado.foto
+    const urlCervFav = estado?.cervFav
     return (
       <>
         <Image src={foto} alt='profile' className={styles.imgNav} onClick={handleShow}/>
@@ -30,7 +38,7 @@ export default function OffCanvas(){
             </details>
             <hr/>
             <div className={styles.divCervejaFav}>
-              <Image src={foto} className={styles.cervejaFav}/>
+              <Image src={urlCervFav} className={styles.cervejaFav} alt='cervaja favorita'/>
             </div>
             <details className={styles.details}>
               <summary className={styles.summary}>Ceveja favorita</summary>
@@ -66,26 +74,31 @@ export function Foto({nick, handleClose, handleShow}){
   )
 }
 
+
+
+
 export function CervejaFav(){
   const [favorita, setFav] = useState('')
   const favs = [
-    {nome: 'Amstel',  caminho:'amstel.png'},
-    {nome: 'Antarctica', caminho: 'antarctica.png'}	,
-    {nome: 'Bavaria', caminho: 'bavaria.png'}	,
-    {nome: 'Becks', caminho: 'becks.png'},
-    {nome: 'Bohemia', caminho: 'bohemia.png'}	,
-    {nome: 'Brahma', caminho: 'brahma.png'}	,
-    {nome: 'Corona', caminho: 'corona.png'}	,
-    {nome: 'Crystal', caminho: 'crystal.png'}	,
-    {nome: 'Eisenbahn', caminho: 'eisenbahn.png'}	,
-    {nome: 'Heineken', caminho: 'heineken.png'}	,
-    {nome: 'Itaipava', caminho: 'itaipava.png'}	,
-    {nome: 'Kaiser', caminho: 'kaiser.png'	},
-    {nome: 'Schin', caminho: 'schin.png'}	,
-    {nome: 'Skol', caminho: 'skol.png'}	,
-    {nome: 'Stella', caminho: 'stella.png'}	,
-    {nome: 'Tiger', caminho: 'tiger.png'	}
+    {nome: 'Amstel',  caminho:'/cervejas/favs/amstel.png'},
+    {nome: 'Antarctica', caminho: '/cervejas/favs/antarctica.png'}	,
+    {nome: 'Bavaria', caminho: '/cervejas/favs/bavaria.png'}	,
+    {nome: 'Becks', caminho: '/cervejas/favs/becks.png'},
+    {nome: 'Bohemia', caminho: '/cervejas/favs/bohemia.png'}	,
+    {nome: 'Brahma', caminho: '/cervejas/favs/brahma.png'}	,
+    {nome: 'Corona', caminho: '/cervejas/favs/corona.png'}	,
+    {nome: 'Crystal', caminho: '/cervejas/favs/crystal.png'}	,
+    {nome: 'Eisenbahn', caminho: '/cervejas/favs/eisenbahn.png'}	,
+    {nome: 'Heineken', caminho: '/cervejas/favs/heineken.png'}	,
+    {nome: 'Itaipava', caminho: '/cervejas/favs/itaipava.png'}	,
+    {nome: 'Kaiser', caminho: '/cervejas/favs/kaiser.png'	},
+    {nome: 'Schin', caminho: '/cervejas/favs/schin.png'}	,
+    {nome: 'Skol', caminho: '/cervejas/favs/skol.png'}	,
+    {nome: 'Stella', caminho: '/cervejas/favs/stella.png'}	,
+    {nome: 'Tiger', caminho: '/cervejas/favs/tiger.png'	}
   ]
+
+  
 
   const favoritar = (e) => {
     e.preventDefault()
@@ -93,18 +106,17 @@ export function CervejaFav(){
     select.addEventListener('change', () => {
       setFav(select.value)
     })
-    console.log(favorita)
-    
+    updateCervejaFav(auth.currentUser?.displayName, {cervFav: favorita}).then(()=>{return true}).catch((e)=>{return false})
   }
 
   
   
   return(
-    <form className="form-floating" >
+    <form className={styles.form} onSubmit={favoritar}>
       <select className="form-select" id="floatingSelectGrid">
         {favs.map((fav) => <option value={fav.caminho} key={fav.caminho}>{fav.nome}</option>)}
       </select>
-      <button>Favoritar</button>
+      <button className="btn btn-outline-warning btn-sm" type='submit'>Favoritar</button>
     </form>
   )
 }
