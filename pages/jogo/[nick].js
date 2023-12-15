@@ -136,7 +136,7 @@ export default function Play(props){
                                         :`${(contador/(1000**3)).toFixed(3)} B` 
                                     : `${(contador/(1000**2)).toFixed(3)} M` 
                                 : `${(contador/(1000**1)).toFixed(3)} K`
-                            : contador.toFixed(3)}
+                            : contador.toFixed(1)}
                         </div>
                         <div><button onClick={salvar}>salvar</button></div>
                     </div>
