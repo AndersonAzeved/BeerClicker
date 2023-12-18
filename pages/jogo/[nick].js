@@ -219,6 +219,13 @@ export async function getStaticPaths(){
             {params: {nick: "Anderson Azevedo da Silva"}},
             {params: {nick: "testador2"}},
             {params: {nick: "testando"}},
+            {params: {nick: "Fabricio10"}},
+            {params: {nick: "fabricio10"}},
+            {params: {nick: "fabricio"}},
+            {params: {nick: "fafa"}},
+            {params: {nick: "bibi"}},
+            {params: {nick: "Marlon"}},
+            {params: {nick: "baiano"}},
         ],
         fallback: true
     }
