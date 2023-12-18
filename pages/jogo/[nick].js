@@ -118,7 +118,8 @@ export default function Play(props){
                 return(<CervejaSpin/>)
             }
             return (
-                <div className={styles.layout}>
+                <div className={styles.layout}>    
+                    <title>{nick}</title>
                     <div className={styles.container}>
                         <div className={styles.statistics}>
                             <div>
