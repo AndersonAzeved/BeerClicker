@@ -19,6 +19,20 @@
     width: 350px;
 }
 
+.statistics{
+    font-family: "Lucida Console", Courier, monospace;
+    color: #000;
+    font-size: 1.0em;
+    font-weight: bolder;
+}
+
+.contador{
+    font-family: "Lucida Console", Courier, monospace;
+    color: #000;
+    font-size: 2em;
+    font-weight: bolder;
+}
+
 .item{
     font-family: "Lucida Console", Courier, monospace;
     color: #fffdd9;
@@ -39,7 +53,7 @@
 }
 
 .item:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .melhoria_details{

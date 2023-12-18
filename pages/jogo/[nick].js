@@ -18,9 +18,10 @@ export default function Play(props){
     for (let index = 1; index < 17; index++) {
         producoes += props.melhorias[index].producao * props.estado.melhorias[index]
     }
+    let clicks = 1 + props.estado.melhorias[0] * 0.1
 
     const [producao, setProducao] = useState(producoes)
-    const [click, setClick] = useState(props.estado.click)
+    const [click, setClick] = useState(clicks)
 
     useEffect(()=>{
         // Define um intervalo de 1000 milissegundos (1 segundo)
@@ -119,13 +120,47 @@ export default function Play(props){
             return (
                 <div className={styles.layout}>
                     <div className={styles.container}>
-                        <p>Clock: </p>
-                        <Button onClick={voltar}>Sair</Button>
+                        <div className={styles.statistics}>
+                            <div>
+                                <div colSpan={2}>Estatísticas</div>
+                            </div>
+                            <div>
+                                <div>Click:
+                                    {click > 1000 ? 
+                                        click > 1000**2 ? 
+                                            click > 1000**3 ? 
+                                                click > 1000**4 ? 
+                                                    click > 1000**5 ?
+                                                        `${(click/(1000**5)).toFixed(3)}AA`
+                                                    :`${(click/(1000**4)).toFixed(3)}T` 
+                                                :`${(click/(1000**3)).toFixed(3)}B` 
+                                            : `${(click/(1000**2)).toFixed(3)}M` 
+                                        : `${(click/(1000**1)).toFixed(3)}K`
+                                    : click.toFixed(1)}
+                                </div>
+                            </div>
+                            <div>
+                                <div>Cps:
+                                    {producao > 1000 ? 
+                                        producao > 1000**2 ? 
+                                            producao > 1000**3 ? 
+                                                producao > 1000**4 ? 
+                                                    producao > 1000**5 ?
+                                                        `${(producao/(1000**5)).toFixed(3)}AA`
+                                                    :`${(producao/(1000**4)).toFixed(3)}T` 
+                                                :`${(producao/(1000**3)).toFixed(3)}B` 
+                                            : `${(producao/(1000**2)).toFixed(3)}M` 
+                                        : `${(producao/(1000**1)).toFixed(3)}K`
+                                    : producao.toFixed(1)}
+                                </div>
+                            </div>
+                        </div>
+                        <Button onClick={salvar}>save</Button>
                     </div>
                     <div className={styles.container}>
                         <img className={styles.beer} onClick={addContador} src="/beer.png"/>
                         <br/><br/>
-                        <div id="contador">
+                        <div className={styles.contador} id="contador">
                             {contador > 1000 ? 
                                 contador > 1000**2 ? 
                                     contador > 1000**3 ? 
@@ -138,7 +173,6 @@ export default function Play(props){
                                 : `${(contador/(1000**1)).toFixed(3)} K`
                             : contador.toFixed(1)}
                         </div>
-                        <div><button onClick={salvar}>salvar</button></div>
                     </div>
                     <div className={styles.melhorias}>
                         <div className={styles.container}>
